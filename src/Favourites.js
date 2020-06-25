@@ -3,6 +3,7 @@ import firebase from 'firebase';
 import theMovieDB from './theMovieDB';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleRight, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
+import noImage from './assets/noImage.png';
 
 class Favourites extends Component {
 
@@ -16,11 +17,6 @@ class Favourites extends Component {
   }
 
   componentDidMount() {
-    // const movie = theMovieDB('gladiator');
-    // // console.log(movie);
-    // movie.then((response) => {
-    //   console.log(response.data.results[0]);
-    // });
     const dbRef = firebase.database().ref('favourites');
 
     dbRef.on('value', (response) => {
@@ -58,33 +54,30 @@ class Favourites extends Component {
 
   handleSelect = (movieTitle) => {
     const promise = theMovieDB(movieTitle);
-    // let newState = {};
 
     promise.then((response) => {
       const movieObj = response.data.results[0];
       const posterBaseURL = 'https://image.tmdb.org/t/p/w500';
-      const imdbBaseURL = 'https://www.imdb.com/title/';
 
       const newState = {
         originalTitle: movieObj.original_title,
-        releaseDate: movieObj.release_date,
-        overview: movieObj.overview,
-        voteAverage: movieObj.vote_average,
+        releaseDate: `Release Date: ${movieObj.release_date}`,
+        overview: `Overview: ${movieObj.overview}`,
+        voteAverage: `IMDB Rating: ${movieObj.vote_average}`,
         posterPath: `${posterBaseURL}${movieObj.poster_path}`
-        // imdbPath: `${imdbBaseURL}${movieObj.imdb_id}`
       };
 
       this.setState({
         selectedMovie: newState
       });
-    }).catch((error) => {
+    }).catch(() => {
       this.setState({
         selectedMovie: {
           originalTitle: "",
           releaseDate: "",
-          overview: "",
+          overview: "The selected movie could not be found. Check the spelling of the movie title.",
           voteAverage: "",
-          posterPath: "#"
+          posterPath: noImage
         }
       });
     });
@@ -122,12 +115,13 @@ class Favourites extends Component {
             </ul>
           </div>
           <div className="gridRight">
-            <h3>{this.state.selectedMovie.originalTitle}</h3>
-            <img src={this.state.selectedMovie.posterPath} alt={`Poster for the movie ${this.state.selectedMovie.originalTitle}`} />
-            <p>Release date: {this.state.selectedMovie.releaseDate}</p>
-            <p>Overview: {this.state.selectedMovie.overview}</p>
-            <p>IMDB rating: {this.state.selectedMovie.voteAverage}</p>
-            <a href={this.state.selectedMovie.imdbPath}>IMBD Page</a>
+            <img src={this.state.selectedMovie.posterPath || noImage} alt={`Poster for the movie ${this.state.selectedMovie.originalTitle}`} />
+            <div>
+              <h3>{this.state.selectedMovie.originalTitle}</h3>
+              <p>{this.state.selectedMovie.releaseDate}</p>
+              <p>{this.state.selectedMovie.overview}</p>
+              <p>{this.state.selectedMovie.voteAverage}</p>
+            </div>
           </div>
         </div>
       </section>

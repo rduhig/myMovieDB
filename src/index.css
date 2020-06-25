@@ -29,6 +29,10 @@ h2 {
   margin-bottom: 30px;
 }
 
+h3 {
+  font-size: 2rem;
+}
+
 a {
   text-decoration: none;
 }
@@ -130,9 +134,15 @@ header button {
 
 div.gridContainer {
   display: grid;
-  grid-template-columns: 1fr 2fr;
-
+  grid-template-columns: 350px 1fr;
+  gap: 2vw;
+  /* display: flex;
+  align-content: stretch; */
 }
+
+/* div.gridLeft {
+  flex: 0 0 350px;
+} */
 
 form input {
   border: 2px solid #264653;
@@ -151,7 +161,6 @@ form button {
 }
 
 ul {
-  /* width: 30%; */
   margin-top: 10px;
 }
 
@@ -159,10 +168,15 @@ li {
   border: 2px solid transparent;
   position: relative;
   padding: 10px;
+  cursor: pointer;
+}
+
+li:hover {
+  border-color: #264653;
 }
 
 li:nth-of-type(even) {
-  background-color: #D3D3D3;
+  background-color: #EEEEEE;
 }
 
 li button {
@@ -177,6 +191,39 @@ li button {
 
 li:hover button {
   display: inline;
+}
+
+div.gridRight {
+  /* display: flex; */
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  /* flex-flow: column; */
+  gap: 2vw;
+  background-color: #EEEEEE;
+  padding: 2vw;
+}
+
+/* div.test {
+  width: 217px;
+  height: 325px;
+  border: 2px dashed #264653;
+  background-color: #E9C46A;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+} */
+
+div.gridRight img {
+  max-width: 100%;
+}
+
+/* div.gridRight div {
+  padding-left: 2vw;
+} */
+
+div.gridRight p {
+  margin-top: 10px;
 }
 
 footer {
