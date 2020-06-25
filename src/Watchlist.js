@@ -19,6 +19,7 @@ class Watchlist extends Component {
   componentDidMount() {
     const dbRef = firebase.database().ref('watchlist');
 
+    // event listener for changes in the database
     dbRef.on('value', (response) => {
       const newState = [];
       const data = response.val();
@@ -36,12 +37,24 @@ class Watchlist extends Component {
     });
   }
 
+  /**
+   * Get the user input from the text box and store it
+   * in this.state
+   * 
+   * @param {event} event 
+   */
   handleChange = (event) => {
     this.setState({
       userInput: event.target.value
     });
   };
 
+  /**
+   * Get the user input from this.state and push it to
+   * the database
+   * 
+   * @param {event} event 
+   */
   handleClick = (event) => {
     event.preventDefault();
     const dbRef = firebase.database().ref('watchlist');
@@ -52,6 +65,12 @@ class Watchlist extends Component {
     });
   };
 
+  /**
+   * Fetch movie details from the API and store them in
+   * this.state
+   * 
+   * @param {string} movieTitle 
+   */
   handleSelect = (movieTitle) => {
     const promise = theMovieDB(movieTitle);
 
@@ -83,6 +102,11 @@ class Watchlist extends Component {
     });
   };
 
+  /**
+   * Remove the corresponding movie from the database
+   * 
+   * @param {string} movieID 
+   */
   deleteMovie = (movieID) => {
     const dbRef = firebase.database().ref('watchlist');
     dbRef.child(movieID).remove();
