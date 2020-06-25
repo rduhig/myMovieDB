@@ -26,6 +26,7 @@ h1 {
 
 h2 {
   font-size: 3rem;
+  margin-bottom: 30px;
 }
 
 a {
@@ -125,6 +126,57 @@ header p {
 header button {
   width: 500px;
   margin-top: 30px;
+}
+
+div.gridContainer {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+
+}
+
+form input {
+  border: 2px solid #264653;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  height: 40px;
+  padding: 5px;
+}
+
+form button {
+  border-radius: 0;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  height: 40px;
+  padding: 5px 10px;
+}
+
+ul {
+  /* width: 30%; */
+  margin-top: 10px;
+}
+
+li {
+  border: 2px solid transparent;
+  position: relative;
+  padding: 10px;
+}
+
+li:nth-of-type(even) {
+  background-color: #D3D3D3;
+}
+
+li button {
+  display: none;
+  background-color: transparent;
+  border: none;
+  color: red;
+  position: absolute;
+  right: 30px;
+  padding: 0;
+}
+
+li:hover button {
+  display: inline;
 }
 
 footer {
